@@ -8,7 +8,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/mruncleleon/poc-argocd-helm.git
-    path: argocd-apps/
+    path: argocd/
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
