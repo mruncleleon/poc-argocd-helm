@@ -12,6 +12,7 @@ spec:
     targetRevision: 26.0.0
     helm:
       valueFiles:
+      - $values/traefik/configmap.yaml
       - $values/traefik/values.yaml
   - repoURL: https://github.com/mruncleleon/poc-argocd-helm.git
     targetRevision: HEAD
