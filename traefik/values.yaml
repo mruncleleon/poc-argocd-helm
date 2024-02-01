@@ -21,10 +21,7 @@ env:
 
 ports:
   web:
-    redirectTo:
-      port: websecure
-    forwardedHeaders:
-      insecure: true
+    redirectTo: websecure
   websecure:
     tls:
       certResolver: cloudflare
