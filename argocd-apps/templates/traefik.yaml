@@ -6,17 +6,10 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
-  sources:
-  - repoURL: https://traefik.github.io/charts
-    chart: traefik
-    targetRevision: 10.0.0
-    helm:
-      valueFiles:
-      - $values/traefik/configmap.yaml
-      - $values/traefik/values.yaml
-  - repoURL: https://github.com/mruncleleon/poc-argocd-helm.git
+  source:
+    repoURL: https://github.com/mruncleleon/poc-argocd-helm.git
+    path: traefik/
     targetRevision: HEAD
-    ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: default
