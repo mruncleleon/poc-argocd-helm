@@ -6,5 +6,5 @@ metadata:
 
 type: Opaque
 stringData:
-  email: your@cloudflare.email
-  apiKey: YOURCLOUDFLAREAPIKEY
+  email: {{ .Values.apiEmail }}
+  apiKey: {{ .Values.apiKey }}
