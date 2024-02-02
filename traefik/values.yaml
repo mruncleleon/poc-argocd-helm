@@ -1,75 +1,79 @@
-additionalArguments:
-  # - --entrypoints.websecure.http.tls.certresolver=cloudflare
-  - --entrypoints.websecure.http.tls.domains[0].main=arroz.com.br
-  - --entrypoints.websecure.http.tls.domains[0].sans=*.arroz.com.br
-  # - --certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare
-  # - --certificatesresolvers.cloudflare.acme.email=someone@mail.com
-  # - --certificatesresolvers.cloudflare.acme.dnschallenge.resolvers=1.1.1.1
-  # - --certificatesresolvers.cloudflare.acme.storage=/certs/acme.json
+apiEmail: mail@mail.com
+apiKey: aHDIAUSdhauid
 
-env:
-  - name: CF_API_EMAIL
-    valueFrom:
-      secretKeyRef:
-        key: email
-        name: cloudflare-api-credentials
-  - name: CF_DNS_API_TOKEN
-    valueFrom:
-      secretKeyRef:
-        key: apiKey
-        name: cloudflare-api-credentials
+traefik:
+  additionalArguments:
+    # - --entrypoints.websecure.http.tls.certresolver=cloudflare
+    - --entrypoints.websecure.http.tls.domains[0].main=arroz.com.br
+    - --entrypoints.websecure.http.tls.domains[0].sans=*.arroz.com.br
+    # - --certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare
+    # - --certificatesresolvers.cloudflare.acme.email=someone@mail.com
+    # - --certificatesresolvers.cloudflare.acme.dnschallenge.resolvers=1.1.1.1
+    # - --certificatesresolvers.cloudflare.acme.storage=/certs/acme.json
 
-ports:
-  web:
-    redirectTo: websecure
-  websecure:
-    tls:
-      certResolver: cloudflare
-      domains:
-        - main: arroz.com.br
-          sans:
-            - "*.arroz.com.br"
-tlsOptions:
-  default:
-    sniStrict: true
-    preferServerCipherSuites: true
-    minVersion: VersionTLS12
-    cipherSuites:
-      - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
-      - TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
-      - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-      - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
-      - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
-      - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-    curvePreferences:
-      - CurveP521
-      - CurveP384
-# service:
-#   type: LoadBalancer
-#   externalTrafficPolicy: Local
-#   loadBalancerIP: "1.2.3.4"
-persistence:
-  enabled: true
-  size: 128Mi
-  path: /certs
-# certResolvers:
-#   letsencrypt:
-#     # for challenge options cf. https://doc.traefik.io/traefik/https/acme/
-#     email: someone@mail.com
-#     caServer: https://acme-staging-v02.api.letsencrypt.org/directory
-#     dnsChallenge:
-#       # also add the provider's required configuration under env
-#       # or expand then from secrets/configmaps with envfrom
-#       # cf. https://doc.traefik.io/traefik/https/acme/#providers
-#       provider: digitalocean
-#       # add futher options for the dns challenge as needed
-#       # cf. https://doc.traefik.io/traefik/https/acme/#dnschallenge
-#       delayBeforeCheck: 30
-#       resolvers:
-#         - 1.1.1.1
-#         - 8.8.8.8
-#     tlsChallenge: true
-#     httpChallenge:
-#       entryPoint: "web"
-#     # It has to match the path with a persistent volume
-#     storage: /data/acme.json
+  env:
+    - name: CF_API_EMAIL
+      valueFrom:
+        secretKeyRef:
+          key: email
+          name: cloudflare-api-credentials
+    - name: CF_DNS_API_TOKEN
+      valueFrom:
+        secretKeyRef:
+          key: apiKey
+          name: cloudflare-api-credentials
+
+  ports:
+    web:
+      redirectTo: websecure
+    websecure:
+      tls:
+        certResolver: cloudflare
+        domains:
+          - main: arroz.com.br
+            sans:
+              - "*.arroz.com.br"
+  tlsOptions:
+    default:
+      sniStrict: true
+      preferServerCipherSuites: true
+      minVersion: VersionTLS12
+      cipherSuites:
+        - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+        - TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
+        - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+        - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
+        - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+        - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+      curvePreferences:
+        - CurveP521
+        - CurveP384
+  # service:
+  #   type: LoadBalancer
+  #   externalTrafficPolicy: Local
+  #   loadBalancerIP: "1.2.3.4"
+  persistence:
+    enabled: true
+    size: 128Mi
+    path: /certs
+  # certResolvers:
+  #   letsencrypt:
+  #     # for challenge options cf. https://doc.traefik.io/traefik/https/acme/
+  #     email: someone@mail.com
+  #     caServer: https://acme-staging-v02.api.letsencrypt.org/directory
+  #     dnsChallenge:
+  #       # also add the provider's required configuration under env
+  #       # or expand then from secrets/configmaps with envfrom
+  #       # cf. https://doc.traefik.io/traefik/https/acme/#providers
+  #       provider: digitalocean
+  #       # add futher options for the dns challenge as needed
+  #       # cf. https://doc.traefik.io/traefik/https/acme/#dnschallenge
+  #       delayBeforeCheck: 30
+  #       resolvers:
+  #         - 1.1.1.1
+  #         - 8.8.8.8
+  #     tlsChallenge: true
+  #     httpChallenge:
+  #       entryPoint: "web"
+  #     # It has to match the path with a persistent volume
+  #     storage: /data/acme.json
