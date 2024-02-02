@@ -9,6 +9,7 @@ spec:
   source:
     repoURL: https://gitlab.effecti.com.br/effecti-team/cloudops/kubernetes/traefik.git
     targetRevision: main
+    chart: traefik
   destination:
     server: https://kubernetes.default.svc
     namespace: default
