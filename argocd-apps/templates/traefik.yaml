@@ -7,7 +7,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://gitlab.effecti.com.br/effecti-team/cloudops/kubernetes/traefik.git
+    repoURL: https://github.com/mruncleleon/poc-argocd-helm.git
     targetRevision: main
     chart: traefik
   destination:
