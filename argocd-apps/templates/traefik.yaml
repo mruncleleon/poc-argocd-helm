@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/mruncleleon/poc-argocd-helm.git
     targetRevision: main
-    chart: traefik
+    path: traefik
   destination:
     server: https://kubernetes.default.svc
     namespace: default
